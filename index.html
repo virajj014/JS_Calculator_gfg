@@ -16,52 +16,121 @@
             <div class="mycol">
                 <div class="row">
                     <!-- AC, () , % -->
-                    <button class="mybtn mybtn1">AC</button>
-                    <button class="mybtn mybtn1">( )</button>
-                    <button class="mybtn mybtn1">%</button>
+                    <button class="mybtn mybtn1" onclick="addtodisplay('AC')">AC</button>
+
+                    <button class="mybtn mybtn1" onclick="addtodisplay('()')">( )</button>
+
+                    <button class="mybtn mybtn1" onclick="addtodisplay('%')">%</button>
                 </div>
 
                 <div class="row">
                     <!-- 7, 8, 9 -->
-                    <button class="mybtn mybtn2">7</button>
-                    <button class="mybtn mybtn2">8</button>
-                    <button class="mybtn mybtn2">9</button>
+                    <button class="mybtn mybtn2" onclick="addtodisplay('7')">7</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('8')">8</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('9')">9</button>
                 </div>
 
                 <div class="row">
                     <!-- 4, 5, 6 -->
-                    <button class="mybtn mybtn2">4</button>
-                    <button class="mybtn mybtn2">5</button>
-                    <button class="mybtn mybtn2">6</button>
+                    <button class="mybtn mybtn2" onclick="addtodisplay('4')">4</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('5')">5</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('6')">6</button>
                 </div>
 
                 <div class="row">
                     <!-- 1, 2, 3 -->
-                    <button class="mybtn mybtn2">1</button>
-                    <button class="mybtn mybtn2">2</button>
-                    <button class="mybtn mybtn2">3</button>
+                    <button class="mybtn mybtn2" onclick="addtodisplay('1')">1</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('2')">2</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('3')">3</button>
                 </div>
 
                 <div class="row">
                     <!-- 0, ., back -->
-                    <button class="mybtn mybtn2">0</button>
-                    <button class="mybtn mybtn2">.</button>
-                    <button class="mybtn mybtn3">&gt;</button>
+                    <button class="mybtn mybtn2" onclick="addtodisplay('0')">0</button>
+
+                    <button class="mybtn mybtn2" onclick="addtodisplay('.')">.</button>
+                    <button class="mybtn mybtn3" onclick="addtodisplay('Back')">Back</button>
                 </div>
 
             </div>
             <div class="mycol">
                 <!-- / * - + = -->
-                <button class="mybtn mybtn3">/</button>
-                <button class="mybtn mybtn3">*</button>
-                <button class="mybtn mybtn3">-</button>
-                <button class="mybtn mybtn3">+</button>
-                <button class="mybtn mybtn3">=</button>
+                <button class="mybtn mybtn3" onclick="addtodisplay('/')">/</button>
+
+                <button class="mybtn mybtn3" onclick="addtodisplay('*')">*</button>
+
+                <button class="mybtn mybtn3" onclick="addtodisplay('-')">-</button>
+
+                <button class="mybtn mybtn3" onclick="addtodisplay('+')">+</button>
+
+                <button class="mybtn mybtn3" onclick="addtodisplay('=')">=</button>
             </div>
 
 
         </div>
     </div>
 </body>
+
+
+<script>
+    // ac - clear display
+    // back - remove last character
+    // () - add brackets , ( , )
+    // 2+3
+    // = - evaluate the expression
+
+    let bracketflag = 0;
+    let display = document.getElementById("display");
+    display.value = "0";
+
+    const addtodisplay = (myval) => {
+        // let display = document.getElementById("display");
+        if(display.value == "0"){
+            display.value = "";
+        }
+        if (myval == "AC") {
+            display.value = "0";
+        }
+        else if (myval == "Back") {
+            display.value = display.value.slice(0, -1)
+        }
+        else if (myval == "()") {
+
+            // first time press -> opening bracket
+            // second time press -> closing bracket
+            // third time press -> opening bracket
+            if (bracketflag == 0) {
+                display.value += "(";
+                bracketflag = 1;
+            }
+            else if (bracketflag == 1) {
+                display.value += ")";
+                bracketflag = 0;
+            }
+        }
+        else if (myval == "=") {
+            // evaluate the expression
+
+            try {
+                display.value = eval(display.value);
+            }
+            catch {
+                display.value = "Error";
+            }
+        }
+        else {
+            // 0,1,2,3,4,5,6,7,8,9,.,+,-,*,/,%
+            console.log(myval);
+            display.value = display.value + myval;
+        }
+
+    }
+</script>
 
 </html>
